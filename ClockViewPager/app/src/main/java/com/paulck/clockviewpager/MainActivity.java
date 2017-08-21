@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
+    //  Field mViewScroller = null;
     public SectionsPagerAdapter mSectionsPagerAdapter;
     public ClockSectionsPagerAdapter mClockSectionsPagerAdapter;
     private static int CurrentPagePosition = 0;
@@ -27,21 +27,18 @@ public class MainActivity extends AppCompatActivity {
 
         mActivity = this;
 
-
         mSectionsPagerAdapter = null;
         mClockSectionsPagerAdapter = null;
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),  5);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), 5);
 
-
-        // ClockPlaceholderFragment
         mClockSectionsPagerAdapter = new ClockSectionsPagerAdapter(getSupportFragmentManager(), 5);
-
         mClockViewPager = (ViewPager) findViewById(R.id.containertop);
         mClockViewPager.setVisibility(View.VISIBLE);
         mClockViewPager.setOffscreenPageLimit(20);
+        mClockViewPager.setClipToPadding (false);
+        mClockViewPager.setPageMargin(12);
+
         mClockViewPager.setAdapter(mClockSectionsPagerAdapter);
-
-
         mClockViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             private int mScrollState = ViewPager.SCROLL_STATE_IDLE;
 
@@ -59,20 +56,17 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TT", "mClockViewPager onPageScrolled position: " + position);
                 Log.d("TT", "mClockViewPager onPageScrolled positionOffset: " + positionOffset);
                 Log.d("TT", "mClockViewPager onPageScrolled positionOffsetPixels: " + positionOffsetPixels);
-                //    int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30 * 2, getResources().getDisplayMetrics());
                 if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
                     return;
                 }
 
-                mViewPager.scrollTo(mClockViewPager.getScrollX(), mViewPager.getScrollY());
+                mViewPager.scrollTo(mClockViewPager.getScrollX() +60, mViewPager.getScrollY());
 
-                //     mViewPager.getCurrentItem( )
 
             }
 
             @Override
             public void onPageSelected(int position) {
-                // Check if this is the page you want.
                 Log.d("paul", "mClockViewPager onPageSelected position: " + position);
                 CurrentPagePosition = position;
 
@@ -86,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setVisibility(View.VISIBLE);
         mViewPager.setOffscreenPageLimit(20);
 
+
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
@@ -96,50 +92,35 @@ public class MainActivity extends AppCompatActivity {
 
             int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
+
             @Override
             public void onPageScrollStateChanged(final int state) {
 
                 mScrollState = state;
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    mClockViewPager.setCurrentItem(mViewPager.getCurrentItem(), false);
-
+                         mClockViewPager.setCurrentItem(mViewPager.getCurrentItem(), false);
 
                 }
-                //          mClockViewPager.scrollTo((int) (mViewPager.getScrollX()) - margin, mClockViewPager.getScrollY());
-                mClockViewPager.scrollTo((int) (mViewPager.getScrollX()), mClockViewPager.getScrollY());
+
+
             }
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Log.d("paul", "onPageScrolled position: " + position);
-                mClockViewPager.scrollTo((int) (mViewPager.getScrollX()), mClockViewPager.getScrollY());
-/*
-                if (startIndicator == 0) {
-                    mClockViewPager.scrollTo((int) (mViewPager.getScrollX()) - margin, mClockViewPager.getScrollY());
-                    startIndicator++;
-                }
-
                 if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
                     return;
                 }
 
-                if (CurrentPagePosition == 0 || CurrentPagePosition == devicelist.size()) {
+                mClockViewPager.scrollTo((int) (mViewPager.getScrollX()), mClockViewPager.getScrollY());
 
-                    mClockViewPager.scrollTo((int) (mViewPager.getScrollX()) - margin - 50, mClockViewPager.getScrollY());
-                } else {
-                    mClockViewPager.scrollTo((int) (mViewPager.getScrollX()) - margin - 25, mClockViewPager.getScrollY());
 
-                }
- */
             }
 
             @Override
             public void onPageSelected(int position) {
-                // Check if this is the page you want.
                 Log.d("paul", "onPageSelected position: " + position);
 
-
-                //    mClockViewPager.scrollTo((int) (mViewPager.getScrollX()) - margin  , mClockViewPager.getScrollY());
 
                 CurrentPagePosition = position;
 
@@ -197,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("paul", "PlaceholderFragment onCreateView: " + mNum);
 
 
-        //    music_control_region.add((RelativeLayout) rootView.findViewById(R.id.music_control_region));
+            //    music_control_region.add((RelativeLayout) rootView.findViewById(R.id.music_control_region));
 
 
             return rootView;
@@ -251,7 +232,6 @@ public class MainActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_main_clock, container, false);
             TextView device_name = (TextView) rootView.findViewById(R.id.device_name);
             Log.d("paul", "ClockPlaceholderFragment onCreateView: " + mNum);
-
 
 
             return rootView;

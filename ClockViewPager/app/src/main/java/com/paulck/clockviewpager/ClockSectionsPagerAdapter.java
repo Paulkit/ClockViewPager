@@ -33,10 +33,10 @@ public class ClockSectionsPagerAdapter extends FragmentPagerAdapter {
 
         return null;
     }
-/*
+
     @Override
     public float getPageWidth(int position) {
-        return 0.7f;
+        return 0.93f;
     }
-    */
+
 }
