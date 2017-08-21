@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="270dp">
+
+    <RelativeLayout
+        android:id="@+id/fragment_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:id="@+id/clock_region"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="0dp">
+
+            <ImageView
+                android:id="@+id/clock_image_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignBottom="@+id/refim"
+                android:layout_alignEnd="@+id/refim"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentTop="false"
+                android:layout_alignRight="@+id/refim"
+                android:layout_alignStart="@+id/refim"
+                android:layout_alignTop="@+id/refim"
+                android:layout_marginBottom="-22dp"
+                android:layout_marginLeft="-22dp"
+                android:layout_marginRight="-22dp"
+                android:layout_marginTop="-22dp"
+                android:alpha="0.5"
+                android:background="@mipmap/clock_bg"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:id="@+id/refim"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_below="@+id/suggest"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginTop="34.5dp"
+                android:background="@mipmap/clock_bg_ref"
+                android:visibility="visible">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/clock_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_marginTop="6dp"
+                android:shadowRadius="6"
+                app:siRadius="8dp" />
+
+
+            <TextView
+                android:id="@+id/clocktimeview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="72.5dp"
+                android:layout_marginLeft="39dp"
+                android:layout_marginRight="39dp"
+                android:layout_marginTop="75.5dp"
+                android:includeFontPadding="false"
+                android:shadowColor="#33000000"
+                android:shadowRadius="6"
+                android:text="13:13"
+                android:textColor="@color/colorWhite"
+                android:textSize="56sp" />
+
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

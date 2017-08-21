@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#7acba7</color> <!-- titlebar color 55D0A6-->
+    <color name="colorPrimaryDark">#7acba7</color> <!-- actionbar color 55D0A6-->
+    <color name="colorAccent">#55D0A6</color>
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorPressed">#67ac8e</color>
+    <color name="logincolorPressed">#67AC8F</color>
+
+
+
+    <color name="colorunderline">#DCDAD6</color>
+    <color name="colorlabel">#757575</color>
+    <color name="colorblack">#000</color>
+    <color name="colordialog">#fafafa</color>
+
+
+    <color name="colortransparentblack">#ae000000</color>
+    <color name="colorthumb">#d3cbc0</color>
+    <color name="colorseekbar">#d3cbc0</color>
+    <color name="colorseekbarhighlight">#d3cbc0</color>
+
+    <color name="colorbtndisabled">#EBEBEB</color>
+    <color name="colortextdisabled">#b1b1b1</color>
+    <color name="colorlabeltitle">#464646</color>
+    <color name="colorlabelerror">#f45050</color>
+    <color name="colorcontent">#484848</color>
+    <color name="colorclockbg">#F8F5F0</color>
+    <color name="coloritemtext">#323232</color>
+    <color name="colorinfobg">#72C7A8</color>
+    <color name="colorstatusbg">#7acba7</color>
+    <color name="colorseperator">#ece9e4</color>
+    <color name="colorclockfragment">#f7f4ef</color>
+    <color name="cropimagebgcolor">#434343</color>
+    <color name="popup_outside">#33000000</color>
+    <color name="save_pressed">#94DDBF</color>
+    <color name="spinner_outside">#FFffffff</color>
+    <color name="icon_border_color">#E6FAEE</color>
+    <color name="radio_btn_select">#009688</color>
+    <color name="arrow_spinner">#727272</color>
+    <color name="arrow_spinner_selected">#cdcdcd</color>
+    <color name="status_bar_shadow">#63A388</color>
+
+
+
+    <item name="blue" type="color">#FF33B5E5</item>
+    <item name="purple" type="color">#FFAA66CC</item>
+    <item name="green" type="color">#FF99CC00</item>
+    <item name="orange" type="color">#FFFFBB33</item>
+    <item name="red" type="color">#FFFF4444</item>
+    <item name="darkblue" type="color">#FF0099CC</item>
+    <item name="darkpurple" type="color">#FF9933CC</item>
+    <item name="darkgreen" type="color">#FF669900</item>
+    <item name="darkorange" type="color">#FFFF8800</item>
+    <item name="darkred" type="color">#FFCC0000</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/darkblue</item>
+        <item>@color/darkpurple</item>
+        <item>@color/darkgreen</item>
+        <item>@color/darkorange</item>
+        <item>@color/darkred</item>
+    </integer-array>
+</resources>
