@@ -9,6 +9,7 @@ import android.util.Log;
  * Created by paulck on 10/8/2017.
  */
 
+
 public class ClockSectionsPagerAdapter extends FragmentPagerAdapter {
     private int pageNum;
 
@@ -34,9 +35,5 @@ public class ClockSectionsPagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
-    @Override
-    public float getPageWidth(int position) {
-        return 0.93f;
-    }
-
 }
+

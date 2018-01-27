@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="clock_bg_marginBottom">-21dp</dimen>
+    <dimen name="clock_bg_marginLeft">-15dp</dimen>
+    <dimen name="clock_bg_marginRight">-21dp</dimen> 
+    <dimen name="clock_bg_marginTop">-15dp</dimen>
+   
+</resources>
