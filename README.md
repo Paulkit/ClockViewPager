@@ -4,7 +4,7 @@ Why called ClockViewPager? Simply because it came from a finished product that o
 
 #### [Nav drawer slide with alpha change ](#nav-drawer-slide-with-alpha-change)
 #### [Transparent toolbar ](#transparent-toolbar)
-#### [Two ViewPagers in one activity with different swipe speed ](#two-viewPagers-in-one-activity-with-different-swipe-speed)
+#### [Two ViewPagers in one activity with different swipe speed ](#two-viewpagers-in-one-activity-with-different-swipe-speed)
 #### [Other Features ](#other-features)
 
 ### Nav drawer slide with alpha change
