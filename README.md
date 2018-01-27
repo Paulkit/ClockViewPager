@@ -1,6 +1,6 @@
 # ClockViewPager
 
-Interesting features for own purpose
+Why called ClockViewPager? Simply because it came from a finished product that one of the activity have time display. Now some interesting features frin the product extracted here for reference.
 
 #### [Nav drawer slide with alpha change](#nav-drawer-slide-with-alpha-change)
 #### [Transparent toolbar](#transparent-toolbar)
