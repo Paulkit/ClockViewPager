@@ -25,7 +25,7 @@ Interesting features for own purpose
 <img src="https://github.com/paulkit/ClockViewPager/blob/master/ClockViewPager/github/different_swipe_speed.gif" width="300">
 
 
-### Nav drawer slide with alpha change
+### Other Features
 
 - crystalrangeseekbar (by <a href="https://github.com/syedowaisali/crystal-range-seekbar" target="_blank">syedowaisali</a> )
 <img src="https://github.com/paulkit/ClockViewPager/blob/master/ClockViewPager/github/crystalrangeseekbar.png" width="300">
