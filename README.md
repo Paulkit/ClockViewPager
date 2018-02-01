@@ -30,7 +30,7 @@ Why called ClockViewPager? Simply because it came from a finished product that o
 - crystalrangeseekbar (by <a href="https://github.com/syedowaisali/crystal-range-seekbar" target="_blank">syedowaisali</a> )
 <img src="https://github.com/paulkit/ClockViewPager/blob/master/ClockViewPager/github/crystalrangeseekbar.png" width="300">
 
-- crystalrangeseekbar (by <a href="https://github.com/EverythingMe/overscroll-decor" target="_blank">EverythingMe</a> )
+- overscroll-decor (by <a href="https://github.com/EverythingMe/overscroll-decor" target="_blank">EverythingMe</a> )
 <img src="https://github.com/paulkit/ClockViewPager/blob/master/ClockViewPager/github/overscroll.gif" width="300">
 
 
