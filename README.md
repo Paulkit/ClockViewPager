@@ -1,5 +1,8 @@
 # ClockViewPager
 
+[![GitHub license](https://img.shields.io/github/license/Paulkit/ClockViewPager.svg)](https://github.com/Paulkit/ClockViewPager/blob/master/LICENSE)
+[![release](https://img.shields.io/badge/release-v1.0.0-blue.svg)](https://github.com/Paulkit/ClockViewPager/releases)
+
 Why called ClockViewPager? Simply because it came from a finished product that one of the activity have time display. Now some interesting features frin the product extracted here for reference.
 
 #### [Nav drawer slide with alpha change ](#nav-drawer-slide-with-alpha-change)
