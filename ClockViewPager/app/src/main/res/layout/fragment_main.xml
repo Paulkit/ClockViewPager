@@ -56,7 +56,7 @@
 
                         android:layout_toStartOf="@+id/volume_bar" />
 
-
+                    <!--TODO  crystalrangeseekbar -->
                     <com.crystal.crystalrangeseekbar.widgets.CrystalSeekbar
                         android:id="@+id/volume_bar"
                         android:layout_width="235dp"

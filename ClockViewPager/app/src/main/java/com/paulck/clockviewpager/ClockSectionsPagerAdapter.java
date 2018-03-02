@@ -3,7 +3,6 @@ package com.paulck.clockviewpager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.util.Log;
 
 /**
  * Created by paulck on 10/8/2017.
@@ -20,7 +19,7 @@ public class ClockSectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return MainActivity.ClockPlaceholderFragment.newInstance(position, pageNum);
+        return MainActivity.ClockPlaceholderFragment.newInstance(position);
     }
 
     @Override
@@ -30,7 +29,6 @@ public class ClockSectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        Log.d("paul", "getPageTitle" + position);
 
         return null;
     }

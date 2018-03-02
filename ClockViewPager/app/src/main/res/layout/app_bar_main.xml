@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
- >
+    android:background="@android:color/transparent">
 
     <RelativeLayout
         android:id="@+id/toolbar_layout"
@@ -14,19 +13,13 @@
         android:layout_marginEnd="-10dp"
         android:layout_marginTop="24dp"
         android:background="@android:color/transparent">
-
+        <!--TODO  Transparent toolbar -->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-
             android:background="@android:color/transparent"
-
-
-
             android:theme="@style/ToolbarColoredMenu"
-
             app:theme="@style/ToolbarColoredMenu" />
     </RelativeLayout>
 
@@ -55,7 +48,7 @@
             android:background="@android:color/transparent"
             android:orientation="vertical">
 
-            <android.support.v4.view.ViewPager
+            <com.paulck.clockviewpager.CustomViewPager
                 android:id="@+id/containertop"
 
                 android:layout_width="wrap_content"
@@ -64,7 +57,7 @@
                 android:overScrollMode="never" />
 
 
-            <android.support.v4.view.ViewPager
+            <com.paulck.clockviewpager.CustomViewPager
                 android:id="@+id/container"
                 android:layout_width="wrap_content"
 
@@ -111,12 +104,14 @@
                     android:layout_alignStart="@+id/refim"
                     android:layout_alignTop="@+id/refim"
                     android:layout_marginBottom="@dimen/clock_bg_marginBottom"
-                    android:layout_marginLeft="@dimen/clock_bg_marginLeft"
-                    android:layout_marginRight="@dimen/clock_bg_marginRight"
+                    android:layout_marginStart="@dimen/clock_bg_marginLeft"
+                    android:layout_marginEnd="@dimen/clock_bg_marginRight"
                     android:layout_marginTop="@dimen/clock_bg_marginTop"
                     android:alpha="0.5"
                     android:background="@mipmap/clock_bg"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+
+                    tools:ignore="ContentDescription" />
 
                 <RelativeLayout
                     android:id="@+id/refim"
@@ -160,7 +155,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:layout_toLeftOf="@+id/timeview_2"
+                            android:layout_toStartOf="@+id/timeview_2"
                             android:background="@null"
                             android:gravity="center"
                             android:includeFontPadding="false"
@@ -177,7 +172,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:layout_toLeftOf="@+id/timeview_3"
+                            android:layout_toStartOf="@+id/timeview_3"
                             android:background="@null"
                             android:gravity="center"
                             android:includeFontPadding="false"
@@ -209,7 +204,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
-                            android:layout_toRightOf="@+id/timeview_3"
+                            android:layout_toEndOf="@+id/timeview_3"
                             android:background="@null"
                             android:gravity="center"
                             android:includeFontPadding="false"
@@ -226,7 +221,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
 
-                            android:layout_toRightOf="@+id/timeview_4"
+                            android:layout_toEndOf="@+id/timeview_4"
                             android:background="@null"
                             android:gravity="center"
                             android:includeFontPadding="false"

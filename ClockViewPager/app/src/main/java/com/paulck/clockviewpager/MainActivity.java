@@ -1,10 +1,10 @@
 package com.paulck.clockviewpager;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -12,7 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -31,24 +30,17 @@ public class MainActivity extends AppCompatActivity {
 
     public SectionsPagerAdapter mSectionsPagerAdapter;
     public ClockSectionsPagerAdapter mClockSectionsPagerAdapter;
-    private static int CurrentPagePosition = 0;
+
     public View content_clock;
-    private View headerLayout;
+
     private Toolbar toolbar;
     private DrawerLayout drawer;
-    private ActionBarDrawerToggle toggle;
-    private NavigationView navigationView;
-    private View app_bar_main;
-    private RelativeLayout no_clock_ui;
-    private int size = 5;
-    public ViewPager mClockViewPager;
-    private int MarginWidth;
-    public ViewPager mViewPager;
+    public CustomViewPager mClockViewPager;
+    public CustomViewPager mViewPager;
     private float WidthOffsetRatio = 0;
     private int currentOnTouching = 0; // 0 mClockViewPager, 1 mViewPager
     private float currentGetScrollX = 0f;
     private float moveBase = 0;
-    private int width;
     private MotionEvent event2;
 
     @Override
@@ -69,10 +61,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+            getSupportActionBar().setElevation(0);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        getSupportActionBar().setElevation(0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         // getStatusBarHeight()
@@ -81,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.setScrimColor(Color.TRANSPARENT);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @SuppressLint("RtlHardcoded")
             @Override
             public void onClick(View v) {
                 if (drawer.isDrawerOpen(Gravity.LEFT)) {
@@ -94,13 +89,30 @@ public class MainActivity extends AppCompatActivity {
 
         (findViewById(R.id.toolbar_layout)).bringToFront();
 
+        alphaChange();
 
+
+
+        UI();
+
+    }
+
+
+    //TODO Nav drawer slide with alpha change
+
+    /**
+     * <h1>Nav drawer slide with alpha change</h1>
+     * Apply alpha change effect in slider menu layout using navigation drawer
+     * <p>
+     * <b>Note:</b> Remember add   android:hardwareAccelerated="true" in application tag on AndroidManifest.xml
+     *
+     * @author PaulCK
+     * @version 1.0
+     * @since 2018-03-02
+     */
+    void alphaChange() {
         drawer.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.END);
-
-
-        toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-
-
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
@@ -110,25 +122,23 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         toggle.syncState();
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        UI();
 
     }
 
 
     private void UI() {
-        headerLayout = navigationView.getHeaderView(0);
-        app_bar_main = findViewById(R.id.app_bar_main);
+
+        View app_bar_main = findViewById(R.id.app_bar_main);
         content_clock = app_bar_main.findViewById(R.id.content_main);
+        // TODO overscroll-decor
         OverScrollDecoratorHelper.setUpOverScroll((ScrollView) content_clock);
 
-        no_clock_ui = (RelativeLayout) content_clock.findViewById(R.id.no_clock_ui);
+        RelativeLayout no_clock_ui = (RelativeLayout) content_clock.findViewById(R.id.no_clock_ui);
 
-        mClockViewPager = (ViewPager) content_clock.findViewById(R.id.containertop);
-        mViewPager = (ViewPager) content_clock.findViewById(R.id.container);
+        mClockViewPager = (CustomViewPager) content_clock.findViewById(R.id.containertop);
+        mViewPager = (CustomViewPager) content_clock.findViewById(R.id.container);
         app_bar_main.setVisibility(View.VISIBLE);
         drawer.setVisibility(View.VISIBLE);
         no_clock_ui.setVisibility(View.GONE);
@@ -136,19 +146,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    //TODO Two ViewPagers in one activity with different swipe speed
+    /**
+     * <h1>Two ViewPagers in one activity with different swipe speed</h1>
+     * Apply different scroll speed when swipe one of the viewpagers (top viewpager and bottom viewpager)
+     * <p>
+     * <b>Note:</b> it involve SectionsPagerAdapter.java , CustomViewPager.java ,  ClockSectionsPagerAdapter.java ><br/>
+     *    the top viewpager use setPageMargin(marginWidth); to reduce the total width of the viewpager
+     *    and increase the scroll speed on bottom viewpager by   .onTouchEvent(event);
+     *    the event variable have a formula to calculate the approximately updated MotionEvent
+     *    so as to achieve a different swipe speed
+     * @author PaulCK
+     * @version 1.0
+     * @since 2018-03-03
+     */
     public void HaveClockSetup() {
 
 
         mSectionsPagerAdapter = null;
         mClockSectionsPagerAdapter = null;
+        int size = 5;
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), size);
 
 
         mClockSectionsPagerAdapter = new ClockSectionsPagerAdapter(getSupportFragmentManager(), size);
 
 
-        mClockViewPager = (ViewPager) content_clock.findViewById(R.id.containertop);
+        mClockViewPager = (CustomViewPager) content_clock.findViewById(R.id.containertop);
 
 
         mClockViewPager.setVisibility(View.VISIBLE);
@@ -156,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         mClockViewPager.setAdapter(mClockSectionsPagerAdapter);
         mClockViewPager.setClipToPadding(false);
 
+        //TODO leave top-margin space for  mClockViewPager
         ViewGroup.MarginLayoutParams lp = (ViewGroup.MarginLayoutParams) mClockViewPager.getLayoutParams();
         lp.topMargin = getStatusBarHeight() + toolbar.getHeight();
         mClockViewPager.setLayoutParams(lp);
@@ -168,46 +193,47 @@ public class MainActivity extends AppCompatActivity {
 
 
         Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        width = size.x;
+        Point display_size = new Point();
+        display.getSize(display_size);
+        int width = display_size.x;
 
 
+        int marginWidth;
         if (getResources().getDisplayMetrics().density <= 0.75f) {
-            MarginWidth = (int) (width * 0.1) * -1;
+            marginWidth = (int) (width * 0.1) * -1;
 
 
         } else if (getResources().getDisplayMetrics().density <= 1f) {
-            MarginWidth = (int) (width * 0.2) * -1;
+            marginWidth = (int) (width * 0.2) * -1;
 
 
         } else if (getResources().getDisplayMetrics().density <= 1.5f) {
-            MarginWidth = (int) (width * 0.23) * -1;
+            marginWidth = (int) (width * 0.23) * -1;
 
 
         } else if (getResources().getDisplayMetrics().density <= 2f) {
-            MarginWidth = (int) (width * 0.26) * -1;
+            marginWidth = (int) (width * 0.26) * -1;
 
 
         } else if (getResources().getDisplayMetrics().density <= 3f) {
-            MarginWidth = (int) (width * 0.26) * -1;
+            marginWidth = (int) (width * 0.26) * -1;
 
         } else {
-            MarginWidth = (int) (width * 0.3) * -1;
+            marginWidth = (int) (width * 0.3) * -1;
 
         }
 
-        mClockViewPager.setPageMargin(MarginWidth);
+        mClockViewPager.setPageMargin(marginWidth);
 
 
-        WidthOffsetRatio = ((float) MarginWidth * -1 / (float) width);
+        WidthOffsetRatio = ((float) marginWidth * -1 / (float) width);
 
         mClockViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            private int mScrollState = ViewPager.SCROLL_STATE_IDLE;
+
 
             @Override
             public void onPageScrollStateChanged(final int state) {
-                mScrollState = state;
+
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     mViewPager.setCurrentItem(mClockViewPager.getCurrentItem(), false);
                 }
@@ -218,17 +244,12 @@ public class MainActivity extends AppCompatActivity {
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
 
-                if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
-                    return;
-                }
-
-
             }
 
             @Override
             public void onPageSelected(int position) {
 
-                CurrentPagePosition = position;
+
                 if (mViewPager.getCurrentItem() != mClockViewPager.getCurrentItem()) {
                     if (currentOnTouching == 0) {
                         mClockViewPager.setCurrentItem(mViewPager.getCurrentItem());
@@ -240,14 +261,12 @@ public class MainActivity extends AppCompatActivity {
 
                 }
 
-
             }
-
 
         });
 
 
-        mViewPager = (ViewPager) content_clock.findViewById(R.id.container);
+        mViewPager = (CustomViewPager) content_clock.findViewById(R.id.container);
         mViewPager.setVisibility(View.VISIBLE);
         mViewPager.setOffscreenPageLimit(20);
         mViewPager.setClipToPadding(false);
@@ -263,15 +282,13 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                Log.d("paul", "onPageScrolled position: " + position);
+
 
             }
 
             @Override
             public void onPageSelected(int position) {
 
-
-                CurrentPagePosition = position;
 
                 if (mViewPager.getCurrentItem() != mClockViewPager.getCurrentItem()) {
                     if (currentOnTouching == 0) {
@@ -294,14 +311,12 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 
-                    Log.d("paul", "mViewPager cuurent: " + event.getActionMasked());
                     currentOnTouching = 1;
 
-                    try {
+
                         switch (event.getActionMasked()) {
 
                             case MotionEvent.ACTION_MOVE:
-                                Log.d("paul", "ACTION_MOVE");
 
                                 if (currentGetScrollX > event.getX()) { // drag left
                                     event2 = MotionEvent.obtain(event.getDownTime(), event.getEventTime(), event.getAction(), event.getX() + (moveBase - currentGetScrollX) * WidthOffsetRatio
@@ -311,38 +326,30 @@ public class MainActivity extends AppCompatActivity {
                                     event2 = MotionEvent.obtain(event.getDownTime(), event.getEventTime(), event.getAction(), event.getX() - (currentGetScrollX - moveBase) * WidthOffsetRatio
                                             , event.getY(), event.getMetaState());
                                 }
-                                try {
-                                    mClockViewPager.onTouchEvent(event2);
-                                } catch (Exception ex) {
-                                    Log.d("paul", "MotionEvent Exception: " + ex);
 
-                                }
+                                mClockViewPager.onTouchEvent(event2);
+
                                 currentGetScrollX = event.getX();
 
                                 break;
 
                             case MotionEvent.ACTION_DOWN:
-                                Log.d("paul", "ACTION_DOWN");
                                 currentGetScrollX = event.getX();
                                 moveBase = event.getX();
                                 mClockViewPager.onTouchEvent(event);
                                 break;
 
                             case MotionEvent.ACTION_UP:
-                                Log.d("paul", "ACTION_UP");
 
                                 moveBase = 0;
                                 event2 = MotionEvent.obtain(event.getDownTime(), event.getEventTime(), event.getAction(), event.getX()
                                         , event.getY(), event.getMetaState());
                                 mClockViewPager.onTouchEvent(event2);
+                                v.performClick();
                                 break;
                         }
 
-                    } catch (Exception ex) {
-                        Log.d("paul", "mViewPager.setOnTouchListener ex: " + ex);
 
-                    }
-                    Log.d("paul", "event.getX()" + event.getX());
 
 
                     return false;
@@ -350,7 +357,6 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } catch (Exception ex) {
-            Log.d("paul", "mViewPager.setOnTouchListener: " + ex);
 
             currentOnTouching = 0;
 
@@ -378,12 +384,9 @@ public class MainActivity extends AppCompatActivity {
                                         , event.getY(), event.getMetaState());
                             }
 
-                            try {
-                                mViewPager.onTouchEvent(event2);
-                            } catch (Exception ex) {
-                                Log.d("paul", "MotionEvent Exception: " + ex);
 
-                            }
+                            mViewPager.onTouchEvent(event2);
+
                             currentGetScrollX = event.getX();
 
 
@@ -403,18 +406,15 @@ public class MainActivity extends AppCompatActivity {
                             event2 = MotionEvent.obtain(event.getDownTime(), event.getEventTime(), event.getAction(), event.getX()
                                     , event.getY(), event.getMetaState());
                             mViewPager.onTouchEvent(event2);
+                            v.performClick();
                             break;
                     }
-
-
-                    Log.d("paul", "event.getX()" + event.getX());
 
 
                     return false;
                 }
             });
         } catch (Exception ex) {
-            Log.d("paul", "mClockViewPager.setOnTouchListener: " + ex);
             currentOnTouching = 0;
 
 
@@ -434,17 +434,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         private int mNum;
-        private static int totalPage;
 
 
-        public static PlaceholderFragment newInstance(int sectionNumber, int totalsize) {
-            Log.d("paul", "PlaceholderFragment newInstance sectionNumber: " + sectionNumber);
+        public static PlaceholderFragment newInstance(int sectionNumber) {
 
-            /**  base on sectionNumber to retrieve data ***/
+            /*  base on sectionNumber to retrieve data */
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt("section_number", sectionNumber);
-            totalPage = totalsize;
             fragment.setArguments(args);
             return fragment;
         }
@@ -455,27 +452,22 @@ public class MainActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
 
 
-            try {
+     
 
 
                 mNum = getArguments().getInt("section_number");
-
-
-            } catch (Exception ex) {
-                Log.d("paul", "restart error: " + ex);
-            }
+ 
 
         }
 
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             ((TextView) rootView.findViewById(R.id.label)).setText("" + mNum);
-
-            Log.d("paul", "PlaceholderFragment onCreateView: " + mNum);
 
 
             return rootView;
@@ -488,16 +480,16 @@ public class MainActivity extends AppCompatActivity {
     public static class ClockPlaceholderFragment extends Fragment {
 
         private int mNum;
-        private static int totalPage;
 
 
-        public static ClockPlaceholderFragment newInstance(int sectionNumber, int totalsize) {
 
-            /***  base on sectionNumber to retrieve data ***/
+        public static ClockPlaceholderFragment newInstance(int sectionNumber) {
+
+            /*  base on sectionNumber to retrieve data */
             ClockPlaceholderFragment fragment = new ClockPlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt("section_number", sectionNumber);
-            totalPage = totalsize;
+
             fragment.setArguments(args);
             return fragment;
         }
@@ -507,29 +499,22 @@ public class MainActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            try {
+
 
 
                 mNum = getArguments().getInt("section_number");
 
 
-            } catch (Exception ex) {
-                Log.d("paul", "restart error: " + ex);
-
-
-            }
-
 
         }
 
 
+        @SuppressLint("SetTextI18n")
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main_clock, container, false);
             ((TextView) rootView.findViewById(R.id.clocktimeview)).setText("" + mNum);
-
-            Log.d("paul", "ClockPlaceholderFragment onCreateView: " + mNum);
 
 
             return rootView;

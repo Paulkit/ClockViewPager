@@ -17,8 +17,6 @@
         android:fitsSystemWindows="true"
         android:visibility="visible"
         android:background="@android:color/transparent"
-
-
         tools:openDrawer="start">
 
         <include
@@ -44,16 +42,12 @@
                 android:orientation="vertical"
                 android:visibility="visible">
 
-
                 <ListView
                     android:id="@+id/lst_menu_items"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="152dp"
                     android:divider="@android:color/transparent" />
-
-
-
 
             </RelativeLayout>
         </android.support.design.widget.NavigationView>

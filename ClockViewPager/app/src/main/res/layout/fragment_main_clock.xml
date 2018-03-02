@@ -8,7 +8,6 @@
         android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_centerHorizontal="true">
 
         <RelativeLayout
@@ -35,7 +34,8 @@
                 android:layout_marginTop="-22dp"
                 android:alpha="0.5"
                 android:background="@mipmap/clock_bg"
-                android:visibility="visible" />
+                android:visibility="visible"
+                tools:ignore="RtlHardcoded" />
 
             <RelativeLayout
                 android:id="@+id/refim"
@@ -48,7 +48,8 @@
                 android:layout_marginRight="70dp"
                 android:layout_marginTop="34.5dp"
                 android:background="@mipmap/clock_bg_ref"
-                android:visibility="visible">
+                android:visibility="visible"
+                tools:ignore="UnknownIdInLayout">
 
                 <com.github.siyamed.shapeimageview.RoundedImageView
                     android:id="@+id/clock_image"
@@ -77,8 +78,6 @@
                     android:text="13:13"
                     android:textColor="@color/black"
                     android:textSize="56sp" />
-
-
             </RelativeLayout>
         </RelativeLayout>
 
